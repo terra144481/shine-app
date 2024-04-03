@@ -20,5 +20,5 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          docker build -t terra144481/shine-app:latest .
-          docker push terra144481/shine-app:latest
+          docker build -t terra144481/shiny-app:latest .
+          docker push terra144481/shiny-app:latest
