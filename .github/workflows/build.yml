@@ -1,0 +1,24 @@
+name: Docker CI
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 19 * * 6'  # Run every Saturday at 7 PM
+
+jobs:
+  build:
+    runs-on: rocker/r-ver
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t terra144481/shine-app:latest .
+          docker push terra144481/shine-app:latest
