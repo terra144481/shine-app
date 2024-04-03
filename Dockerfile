@@ -1,9 +1,8 @@
 # Base R Shiny image
 FROM rocker/r-ver
 
+# Working directory for any command that follows it in the Dockerfile.
 WORKDIR /shiny-app
-# Make a directory in the container
-#RUN mkdir /home/shiny-app
 
 # Install R dependencies
 RUN R -e "install.packages('shiny')"
