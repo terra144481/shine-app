@@ -1,7 +1,21 @@
 # shine-app
-this is test task
+**Task # 1  Building a docker container via GitHub Actions**
 
+Task: Build a container image, and push it into a registry
+Scenario: You have a simple R Shiny application. You need to build a container image, so it can
+be deployed somewhere later on.
+To do:
+Create a Hello World R Shiny app application (you can use one of the [examples](https://github.com/rstudio/shiny-examples/tree/main))
+Prepare the Dockerfile, which can be used to build the container. Provide information on
+how to build the image locally (with Docker/Podman) and run the container.  
+Prepare CI process (GitHub Workflows/Gitlab CI), which builds the container image, and
+pushes it to a registry (e.g., Docker Hub, Quay.io, GitHub Container Registry). The CI
+should be run on push to the main branch and periodically on Saturday at 7 PM (push an
+image with the latest tag)
+
+**Solution:**
 1. Create Dockerfile. It defining how to build Docker image.
+[Dockerfile](./Dockerfile)
 2. Build a container per dockerfile.  
 ``sudo docker build -t shiny-app . ``  
 
@@ -37,4 +51,21 @@ terra@DESKTOP-NFU8E2P:/app/shine-app$ sudo docker run -p 8080:8080 shiny-app
 
 Listening on http://0.0.0.0:8080
 ```
+
+4. Create tag, login in your Github account, push image  
+```sudo docker tag shiny-docker-app terra144481/shiny-docker-app```
+5. Push image into github.  
+``` sudo docker push terra144481/shiny-docker-app:latest ```  
+
+Next create CI via GitHub Actions.  
+1. Setting up the repository in Docker Hub.
+- create repo on Github
+- create access token (“Account settings” - “Security” - “New Access Token”).
+- Go to your Github repository “Settings” - “Secrets and variables” - “Actions” - “New repository secret”.  
+Add name - DOCKERHUB_TOKEN, secret - YOUR_SECRET_FROM_PREVIEW_STEP
+2.  Creating the GitHub Actions Workflow 
+- In the root directory of your github repository, create a new directory .github/workflows  
+- Inside the .github/workflows directory, create a file [build.yml](./.github/workflows/build.yml) and write code.  
+3. Pushing to GitHub and testing the workflow.
+
 
